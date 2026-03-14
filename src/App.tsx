@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Sparkles, Heart, Shield, Infinity as InfinityIcon, Wrench, Puzzle, 
   Eye, Ear, Smile, Home, Flame, Crown, Scale, Users, 
-  Music, Ticket, Mail, Gem, Flower2, Star, Sun, Anchor, Compass, Lock
+  Music, Ticket, Mail, Gem, Flower2, Star, Sun, Anchor, Compass, Lock, X
 } from 'lucide-react';
 
 const pages = [
@@ -275,6 +275,7 @@ export default function App() {
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [showMusicNotice, setShowMusicNotice] = useState(true);
 
   const handleTap = (isRight: boolean) => {
     setHasInteracted(true);
@@ -404,6 +405,28 @@ export default function App() {
                 >
                   PERSONALIZED FOR CEY
                 </motion.p>
+
+                <AnimatePresence>
+                  {showMusicNotice && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className="absolute bottom-8 px-4 py-3 bg-[#241211]/90 border border-[#D4AF37]/30 rounded-lg flex items-start md:items-center gap-3 max-w-[85%] md:max-w-md backdrop-blur-sm shadow-xl z-50"
+                    >
+                      <Music className="w-4 h-4 mt-0.5 md:mt-0 shrink-0 text-[#D4AF37]/70" />
+                      <p className="text-xs text-[#D4AF37]/80 leading-relaxed text-left font-sans tracking-normal">
+                        A music will seamlessly start playing the moment you tap the screen for the first time to open the book
+                      </p>
+                      <button 
+                        onPointerDown={(e) => { e.stopPropagation(); setShowMusicNotice(false); }}
+                        className="shrink-0 p-1 hover:bg-[#D4AF37]/20 rounded-full transition-colors text-[#D4AF37]/70"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ) : (
               <div className="relative w-full h-full flex flex-col items-center justify-center p-6 md:p-16">
