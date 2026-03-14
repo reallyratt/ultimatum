@@ -51,7 +51,7 @@ const pages = [
   {
     type: 'content',
     lines: [
-      "And that makes realize that...",
+      "And that makes me realize that...",
       "I need to keep you around my arms,",
       "Since you're already sitting comfortably in my heart."
     ],
@@ -274,8 +274,10 @@ export default function App() {
   const [pageIndex, setPageIndex] = useState(0);
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const handleTap = (isRight: boolean) => {
+    setHasInteracted(true);
     if (isRight) {
       if (pageIndex === 0) {
         setDirection(1);
@@ -349,6 +351,18 @@ export default function App() {
           <rect width="100%" height="100%" filter="url(#globalNoiseFilter)"/>
         </svg>
       </div>
+
+      {/* Background Music */}
+      {hasInteracted && (
+        <div className="absolute opacity-0 pointer-events-none w-1 h-1 overflow-hidden">
+          <iframe
+            width="100"
+            height="100"
+            src="https://www.youtube-nocookie.com/embed/ENVxylS0ew4?start=2254&autoplay=1&controls=0&loop=1&playlist=ENVxylS0ew4"
+            allow="autoplay"
+          />
+        </div>
+      )}
 
       {/* Simultaneous Page Transition Container */}
       <div className="relative w-full h-full flex items-center justify-center">
